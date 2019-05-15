@@ -7,6 +7,20 @@ const router = express.Router();
 //
 
 /*
+Configure My>SQL
+*/
+
+const mysql = require('mysql');
+const connexion = mysql.createConnection({
+  host  : 'localhost',
+  user  : 'root',
+  password  : 'root',
+  port: 8889,
+  database  : 'Nodeboilerplate'
+});
+connexion.connect();
+
+/*
 Définition du CRUD
 */
 
@@ -19,7 +33,7 @@ router.post('/article', (req, res) => {
     - content
   */
 
-  res.json({msg: 'Create Article'})
+  res.json({msg: 'Create Article', data: req.body})
 });
 
 // read all items: GET
