@@ -1,27 +1,35 @@
 /*
 Importer les composants serveur
 */
+    // NodeJS
+    require('dotenv').config();
+    const express = require('express');
+    const path = require('path');
 
-require('dotenv').config();
-const express = require('express');
-const path = require('path');
-
-
-/*
-Configuration du server
-*/
-
-// Définir les variables serveur
-
-const server = express();
-const port = process.env.PORT; // voir le fichier .env
-
-// Définition du dossier static du client
-server.set( 'views', __dirname + '/www' );
-server.use( express.static(path.join(__dirname, 'www')) );
+    // Inner
+    const frontRouter = require('./routes/front.router');
+//
 
 /*
-Lancer le server
+Configuration du serveur
 */
+    // Définir les variables serveur
+    const server = express();
+    const port = process.env.PORT;
 
-server.listen(port, () => console.log(`Server Listening on port ${port}`))
+    // Configuration du moteur de rendu
+    server.set('view engine', 'ejs'); 
+
+    // Définition du dossier static du client
+    server.set( 'views', __dirname + '/www' );
+    server.use( express.static(path.join(__dirname, 'www')) );
+
+    // Utilisation des routers
+    server.use('/', frontRouter);
+//
+
+/* 
+Lancer le serveur
+*/
+    server.listen( port, () => console.log(`Server listening on port ${port}`) )
+//
