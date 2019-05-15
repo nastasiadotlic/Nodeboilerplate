@@ -8,6 +8,8 @@ Importer les composants serveur
 
     // Inner
     const frontRouter = require('./routes/front.router');
+    const apiRouter = require('./routes/api.router');
+
 //
 
 /*
@@ -25,7 +27,9 @@ Configuration du serveur
     server.use( express.static(path.join(__dirname, 'www')) );
 
     // Utilisation des routers
+    server.use('/api', apiRouter);
     server.use('/', frontRouter);
+
 //
 
 /* 
